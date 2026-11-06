@@ -1,0 +1,15 @@
+name: Update website
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Rebuild apps.rtobo.dev
+        run: gh workflow run deploy.yml -R rt-labs-dev/apps-hub
+        env:
+          GH_TOKEN: ${{ secrets.APPS_HUB_DEPLOY_TOKEN }}
